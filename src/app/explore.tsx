@@ -36,7 +36,7 @@ export default function TabTwoScreen() {
       contentContainerStyle={[styles.contentContainer, contentPlatformStyle]}
     >
       <InnElement
-        name="Place Holder Place Holder"
+        name="Place Holder"
         state="Place Holder"
         city="Place Holder"
         desc="Long text used as a placeholder Long text used as a placeholder Long text used as a placeholder "

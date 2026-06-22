@@ -1,4 +1,6 @@
+import { BottomSheet, Column, Host } from "@expo/ui";
 import { Image } from "expo-image";
+import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 interface Props {
@@ -9,9 +11,11 @@ interface Props {
 }
 
 const InnElement = ({ name, state, city, desc }: Props) => {
+  const [isPresented, setIsPresented] = useState(false);
   return (
-    <View style={[styles.MainView]}>
+    <Host style={[stylesElements.MainView]}>
       <Pressable
+        onPress={() => setIsPresented(true)}
         style={({ pressed }) => ({
           flexDirection: "row",
           backgroundColor: pressed ? "#00000044" : "#fff",
@@ -22,44 +26,67 @@ const InnElement = ({ name, state, city, desc }: Props) => {
         })}
       >
         <Image
-          style={[styles.image]}
+          style={[stylesElements.image]}
           source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlHdPPI8C5YxDHDyNMr0jdmUCpXkkPW_bSUA&s"
           //TODO: Cambiar el source
           contentFit="cover"
           transition={1000}
         ></Image>
 
-        <View style={[styles.MainTextView]}>
+        <View style={[stylesElements.MainTextView]}>
           <Text
-            style={[styles.TitleText]}
+            style={[stylesElements.TitleText]}
             numberOfLines={1}
             adjustsFontSizeToFit
           >
             {name}
           </Text>
-          <View style={[styles.InfoView]}>
+          <View style={[stylesElements.InfoView]}>
             <Text>{state}</Text>
             <Text>{city}</Text>
-            <Text numberOfLines={3} adjustsFontSizeToFit>
-              {desc}
-            </Text>
+            <Text numberOfLines={3}>{desc}</Text>
           </View>
         </View>
+
+        {/* Bottom Sheet */}
+
+        <BottomSheet
+          isPresented={isPresented}
+          onDismiss={() => setIsPresented(false)}
+          snapPoints={["half", "full"]}
+        >
+          <Column spacing={12}>
+            <Text style={[stylesElements.TitleText]}>{name}</Text>
+            <Image
+              style={[stylesSheets.image]}
+              source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlHdPPI8C5YxDHDyNMr0jdmUCpXkkPW_bSUA&s"
+              //TODO: Cambiar el source
+              contentFit="cover"
+              transition={1000}
+            ></Image>
+            <View style={[stylesSheets.MainTextView]}>
+              <Text>{state}</Text>
+              <Text>{city}</Text>
+              <Text>{desc}</Text>
+            </View>
+          </Column>
+        </BottomSheet>
       </Pressable>
-    </View>
+    </Host>
   );
 };
 
 export default InnElement;
 
-const styles = StyleSheet.create({
+const stylesElements = StyleSheet.create({
   MainView: {
-    borderWidth: 1, //TODO: Sacar esto al tener los colores listos
+    //TODO: Sacar esto al tener los colores listos
     flexGrow: 100,
     flexDirection: "column",
     borderRadius: 25,
     alignSelf: "center",
     backgroundColor: "#fff",
+    flex: 1,
   },
 
   image: {
@@ -68,26 +95,60 @@ const styles = StyleSheet.create({
     position: "relative",
     margin: 2.5,
     borderRadius: 20,
-
-    borderWidth: 1,
   },
 
   MainTextView: {
     marginLeft: 10,
     maxWidth: 200,
     maxHeight: 100,
-    borderWidth: 1,
   },
 
   TitleText: {
     fontSize: 25,
     fontWeight: "bold",
-    borderWidth: 1,
   },
 
   InfoView: {
     flexGrow: 100,
     paddingLeft: 15,
-    borderWidth: 1,
+  },
+});
+
+const stylesSheets = StyleSheet.create({
+  MainView: {
+    //TODO: Sacar esto al tener los colores listos
+    flexGrow: 100,
+    flexDirection: "column",
+    borderRadius: 25,
+    alignSelf: "center",
+    backgroundColor: "#fff",
+    flex: 1,
+  },
+
+  image: {
+    width: 300,
+    height: 150,
+    alignSelf: "center",
+    alignItems: "center",
+    position: "relative",
+    margin: 2.5,
+    borderRadius: 20,
+  },
+
+  MainTextView: {
+    marginLeft: 10,
+    maxWidth: 200,
+    maxHeight: 100,
+  },
+
+  TitleText: {
+    fontSize: 25,
+    fontWeight: "bold",
+  },
+
+  InfoView: {
+    flexGrow: 100,
+    paddingLeft: 15,
+    flexShrink: 1,
   },
 });

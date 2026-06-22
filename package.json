@@ -1,5 +1,8 @@
 {
   "name": "venbooking",
+  "allowScripts": {
+    "@gorhome/react-native-bottom-sheet": true
+  },
   "main": "expo-router/entry",
   "version": "1.0.0",
   "dependencies": {
