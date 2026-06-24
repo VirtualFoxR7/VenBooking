@@ -37,6 +37,9 @@ yarn.lock*
 # typescript
 *.tsbuildinfo
 
+#garbage
+.junk/
+
 example
 
 # generated native folders
