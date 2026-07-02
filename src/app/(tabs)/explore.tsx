@@ -1,17 +1,29 @@
-import { StyleSheet, Text, View } from "react-native";
+import InnElement from "@/components/inn-element";
+import { View } from "react-native";
 
 export default function Tab() {
   return (
-    <View style={styles.container}>
-      <Text>Tab [Home|Settings]</Text>
+    <View>
+      <InnElement
+        name="placeholder"
+        state="placeholder"
+        city="placeholder"
+        desc="placeholder"
+      />
+
+      <InnElement
+        name="placeholder"
+        state="placeholder"
+        city="placeholder"
+        desc="placeholder"
+      />
+
+      <InnElement
+        name="placeholder"
+        state="placeholder"
+        city="placeholder"
+        desc="placeholder"
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
