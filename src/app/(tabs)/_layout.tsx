@@ -16,7 +16,7 @@ export default function TabLayout() {
           shadowColor={Colors.light.backgroundSelected}
           iconColor={Colors.light.primary}
         >
-          <NativeTabs.Trigger name="index">
+          <NativeTabs.Trigger name="home">
             <NativeTabs.Trigger.Label>home</NativeTabs.Trigger.Label>
             <NativeTabs.Trigger.Icon md={"home"} />
           </NativeTabs.Trigger>

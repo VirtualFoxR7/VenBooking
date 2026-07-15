@@ -1,8 +1,46 @@
 import { Colors } from "@/constants/theme";
 import { Image } from "expo-image";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { router } from "expo-router";
+import * as SecureStore from "expo-secure-store";
+import { useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 const profile = () => {
+  const [email, setEmail] = useState<string>("");
+  const [cargando, setCargando] = useState(true);
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const storedData = await SecureStore.getItemAsync("userData");
+        if (storedData) {
+          const user = JSON.parse(storedData);
+          setEmail(user.email);
+        }
+      } catch (e) {
+        console.error("error al leer el dato", e);
+      } finally {
+        setCargando(false);
+      }
+    }
+    loadData();
+  }, []);
+
+  if (cargando) {
+    return <ActivityIndicator />;
+  }
+
+  const handleLogout = async () => {
+    await SecureStore.deleteItemAsync("userToken");
+    router.replace("/login");
+  };
+
   return (
     <View style={ProfileStyle.global}>
       <Image
@@ -14,15 +52,17 @@ const profile = () => {
       ></Image>
       <View style={ProfileStyle.userInfo}>
         <View style={{ flexDirection: "row", flexGrow: 100 }}>
-          <Text style={ProfileStyle.Name}>Name</Text>
-          <Pressable style={ProfileStyle.pressable}>
-            <Text style={ProfileStyle.GeneralText}>Change Name</Text>
-          </Pressable>
+          <Text style={ProfileStyle.Name} numberOfLines={1} allowFontScaling>
+            {email}
+          </Text>
         </View>
         <View>
           <Text style={ProfileStyle.GeneralText}>Username</Text>
           <Text style={ProfileStyle.GeneralText}>Email</Text>
         </View>
+        <Pressable style={ProfileStyle.pressable} onPress={handleLogout}>
+          <Text style={ProfileStyle.GeneralText}>Log Out</Text>
+        </Pressable>
       </View>
     </View>
   );
