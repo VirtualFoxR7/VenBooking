@@ -1,29 +1,25 @@
-import InnElement from "@/components/inn-element";
-import { View } from "react-native";
+import { StyleSheet, View, FlatList } from 'react-native';
+import innDatabase from '@/data/staticDatabase.json';
+import InnElement from '@/components/inn-element';
 
-export default function Tab() {
+export default function HomeScreen() {
   return (
-    <View>
-      <InnElement
-        name="placeholder"
-        state="placeholder"
-        city="placeholder"
-        desc="placeholder"
-      />
-
-      <InnElement
-        name="placeholder"
-        state="placeholder"
-        city="placeholder"
-        desc="placeholder"
-      />
-
-      <InnElement
-        name="placeholder"
-        state="placeholder"
-        city="placeholder"
-        desc="placeholder"
+    <View style={styles.container}>
+      <FlatList
+        data={innDatabase}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <InnElement id={item.id} />
+        )}
       />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingTop: 20,
+  },
+});

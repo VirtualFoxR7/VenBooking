@@ -3,16 +3,27 @@ import { BottomSheet, Column } from "@expo/ui";
 import { Image } from "expo-image";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import innDatabase from '../data/staticDatabase.json';
 
 interface Props {
-  name: string;
-  state: string;
-  city: string;
-  desc?: string;
+  id: string;
 }
 
-const InnElement = ({ name, state, city, desc }: Props) => {
+export default function InnElement({ id }: Props) {
   const [isPresented, setIsPresented] = useState(false);
+
+  // 1. Buscamos el elemento dentro del componente principal
+  const inn = innDatabase.find((item) => item.id === id);
+
+  // 2. Si no se encuentra, manejamos el error visualmente aquí mismo
+  if (!inn) {
+    return (
+      <View style={stylesElements.container}>
+        <Text>Inn not found</Text>
+      </View>
+    );
+  }
+
   return (
     <Pressable
       onPress={() => setIsPresented(true)}
@@ -29,68 +40,54 @@ const InnElement = ({ name, state, city, desc }: Props) => {
       })}
     >
       <Image
-        style={[stylesElements.image]}
-        source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlHdPPI8C5YxDHDyNMr0jdmUCpXkkPW_bSUA&s"
-        //TODO: Cambiar el source
+        style={stylesElements.image}
+        source={{ uri: inn.image }}
         contentFit="cover"
         transition={1000}
-      ></Image>
+      />
 
-      <View style={[stylesElements.MainTextView]}>
+      <View style={stylesElements.MainTextView}>
         <Text
-          style={[stylesElements.TitleText]}
+          style={stylesElements.TitleText}
           numberOfLines={1}
           adjustsFontSizeToFit
         >
-          {name}
+          {inn.name}
         </Text>
-        <View style={[stylesElements.InfoView]}>
-          <Text>{state}</Text>
-          <Text>{city}</Text>
-          <Text numberOfLines={3}>{desc}</Text>
+        <View style={stylesElements.InfoView}>
+          <Text>{inn.state}</Text>
+          <Text>{inn.city}</Text>
+          <Text numberOfLines={2}>{inn.desc}</Text>
         </View>
       </View>
 
       {/* Bottom Sheet */}
-
       <BottomSheet
         isPresented={isPresented}
         onDismiss={() => setIsPresented(false)}
         snapPoints={["half", "full"]}
       >
         <Column spacing={12}>
-          <Text style={[stylesElements.TitleText]}>{name}</Text>
+          <Text style={stylesSheets.TitleText}>{inn.name}</Text>
           <Image
-            style={[stylesSheets.image]}
-            source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlHdPPI8C5YxDHDyNMr0jdmUCpXkkPW_bSUA&s"
-            //TODO: Cambiar el source
+            style={stylesSheets.image}
+            source={{ uri: inn.image }}
             contentFit="cover"
             transition={1000}
-          ></Image>
-          <View style={[stylesSheets.MainTextView]}>
-            <Text>{state}</Text>
-            <Text>{city}</Text>
-            <Text>{desc}</Text>
+          />
+          <View style={stylesSheets.MainTextView}>
+            <Text>{inn.state}</Text>
+            <Text>{inn.city}</Text>
+            <Text>{inn.desc}</Text>
           </View>
         </Column>
       </BottomSheet>
     </Pressable>
   );
-};
-
-export default InnElement;
+}
 
 const stylesElements = StyleSheet.create({
-  MainView: {
-    //TODO: Sacar esto al tener los colores listos
-    flexGrow: 100,
-    flexDirection: "column",
-    borderRadius: 25,
-    alignSelf: "center",
-    backgroundColor: Colors.light.background,
-    flex: 1,
-  },
-
+  container: { padding: 20, alignItems: 'center' },
   image: {
     width: 100,
     height: 100,
@@ -98,19 +95,16 @@ const stylesElements = StyleSheet.create({
     margin: 2.5,
     borderRadius: 20,
   },
-
   MainTextView: {
     marginLeft: 10,
     maxWidth: 200,
     maxHeight: 100,
   },
-
   TitleText: {
     fontSize: 25,
     fontWeight: "bold",
     color: Colors.light.primary,
   },
-
   InfoView: {
     flexGrow: 100,
     paddingLeft: 15,
@@ -118,16 +112,6 @@ const stylesElements = StyleSheet.create({
 });
 
 const stylesSheets = StyleSheet.create({
-  MainView: {
-    //TODO: Sacar esto al tener los colores listos
-    flexGrow: 100,
-    flexDirection: "column",
-    borderRadius: 25,
-    alignSelf: "center",
-    backgroundColor: Colors.light.background,
-    flex: 1,
-  },
-
   image: {
     width: 300,
     height: 150,
@@ -137,19 +121,16 @@ const stylesSheets = StyleSheet.create({
     margin: 2.5,
     borderRadius: 20,
   },
-
   MainTextView: {
     marginLeft: 10,
     maxWidth: 200,
     maxHeight: 100,
   },
-
   TitleText: {
     fontSize: 25,
     fontWeight: "bold",
     color: Colors.light.text,
   },
-
   InfoView: {
     flexGrow: 100,
     paddingLeft: 15,
