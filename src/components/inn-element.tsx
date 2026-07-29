@@ -1,15 +1,24 @@
+import InnDetails from "@/app/InnDetails";
 import { Colors } from "@/constants/theme";
 import { BottomSheet, Column } from "@expo/ui";
 import { Image } from "expo-image";
+import { router } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import innDatabase from '../data/staticDatabase.json';
+import innDatabase from "../data/staticDatabase.json";
 
 interface Props {
   id: string;
 }
 
 export default function InnElement({ id }: Props) {
+  const Details = () => {
+    router.push({
+      pathname: "/InnDetails",
+      params: {id: id}
+    });
+  };
+
   const [isPresented, setIsPresented] = useState(false);
 
   // 1. Buscamos el elemento dentro del componente principal
@@ -39,12 +48,14 @@ export default function InnElement({ id }: Props) {
         maxHeight: 250,
       })}
     >
-      <Image
-        style={stylesElements.image}
-        source={{ uri: inn.image }}
-        contentFit="cover"
-        transition={1000}
-      />
+      <Pressable onPress={Details}>
+        <Image
+          style={stylesElements.image}
+          source={{ uri: inn.image }}
+          contentFit="cover"
+          transition={1000}
+        />
+      </Pressable>
 
       <View style={stylesElements.MainTextView}>
         <Text
@@ -87,7 +98,7 @@ export default function InnElement({ id }: Props) {
 }
 
 const stylesElements = StyleSheet.create({
-  container: { padding: 20, alignItems: 'center' },
+  container: { padding: 20, alignItems: "center" },
   image: {
     width: 100,
     height: 100,
