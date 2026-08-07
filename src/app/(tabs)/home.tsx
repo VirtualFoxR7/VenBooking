@@ -32,7 +32,6 @@ export default function Tab() {
       <FilterChips fieldKey="city" onSelectFilter={(val) => setFilterCity(val)} />
       <FilterChips fieldKey="state" onSelectFilter={(val) => setFilterState(val)}/>
       
-      {/* FlatList principal con filtros */}
       <FlatList
         data={filteredData}
         keyExtractor={(item) => item.id}
@@ -43,7 +42,6 @@ export default function Tab() {
         )}
       />
 
-      {/* Nueva FlatList que muestra únicamente los favoritos */}
       <Text>Mis Favoritos</Text>
       <FlatList
         data={favoriteData}
