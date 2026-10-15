@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import * as z from "zod";
 import { Colors } from "../constants/theme";
+import TestButton from "@/components/test-button";
 
 // 1. Definimos las reglas (el esquema)
 const loginSchema = z.object({
@@ -97,6 +98,7 @@ export default function LoginScreen() {
       >
         <Text style={styles.recoveryButtonText}>¿Olvidaste tu contraseña?</Text>
       </TouchableOpacity>
+      <TestButton/>
     </View>
   );
 }
