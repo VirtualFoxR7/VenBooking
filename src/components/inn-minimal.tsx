@@ -1,16 +1,20 @@
 import { Colors } from "@/constants/theme";
 import { Image } from "expo-image";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pressable, Text, View } from "react-native";
-import innDatabase from "../data/staticDatabase.json";
+import api from "../services/axios";
 import { GlobalStyles, Images, InnStyles, PressableStyles } from "@/constants/global-styles";
-
+import { InnData } from "@/types/inn";
 interface Props {
   id: string;
 }
 
 export default function InnElement({ id }: Props) {
+
+  const [inn, setInn] = useState<InnData | null>(null);
+  const [cargando, setCargando] = useState(true);
+
   const Details = () => {
     router.push({
       pathname: "/InnDetails",
@@ -18,9 +22,30 @@ export default function InnElement({ id }: Props) {
     });
   };
 
-  const [isPresented, setIsPresented] = useState(false);
+  useEffect(() => {
+    const innDataId = async () => {
+      try {
+        const respuesta = await api.get(`/inns/${id}`);
+        if (respuesta.data.success) {
+          setInn(respuesta.data.data);
+        }
+      } catch (error) {
+        console.error("Error al cargar la posada:", error);
+      } finally {
+        setCargando(false);
+      }
+    };
 
-  const inn = innDatabase.find((item) => item.id === id);
+    innDataId();
+  }, [id]);
+
+  if (cargando) {
+    return (
+      <View>
+        <Text>Cargando...</Text>
+      </View>
+    );
+  }
 
   if (!inn) {
     return (
@@ -32,7 +57,7 @@ export default function InnElement({ id }: Props) {
 
   return (
     <Pressable
-      onPress={() => setIsPresented(true)}
+      onPress={Details}
       style={({ pressed }) => [
         PressableStyles.notPressed,
         pressed && PressableStyles.pressed
@@ -41,7 +66,7 @@ export default function InnElement({ id }: Props) {
       <Pressable onPress={Details}>
         <Image
           style={Images.InnMinimal}
-          source={{ uri: inn.image }}
+          source={{ uri: inn.image_url }}
           contentFit="cover"
           transition={1000}
         />
@@ -56,11 +81,9 @@ export default function InnElement({ id }: Props) {
         </Text>
         <View>
           <Text>{inn.state}</Text>
-          <Text>{inn.city}</Text>
+          <Text>{inn.municipality}</Text>
         </View>
       </View>
-
-      {/* Bottom Sheet */}
     </Pressable>
   );
 }

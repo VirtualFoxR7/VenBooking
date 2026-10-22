@@ -1,12 +1,12 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import api from '../services/axios';
 
-export default function TestButton({ url = 'http://localhost:3000/api/test' }) {
+export default function TestButton() {
     const probarConexion = async () => {
         try {
-            const respuesta = await fetch(url);
-            const datos = await respuesta.json();
-            console.log('Respuesta del servidor en frontend:', datos);
+            const respuesta = await api.get('/ping');
+            console.log('Respuesta del servidor en frontend:', respuesta.data);
         } catch (error) {
             console.error('Fallo al conectar con el backend:', error);
         }
