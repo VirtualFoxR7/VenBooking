@@ -1,4 +1,4 @@
-import { Colors } from "@/constants/theme";
+import { ProfileStyle } from "@/constants/global-styles";
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
@@ -71,56 +71,3 @@ const profile = () => {
 export default profile;
 
 const borderWith = 2;
-const ProfileStyle = StyleSheet.create({
-  global: {
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-
-  GeneralText: {
-    color: Colors.light.primary,
-  },
-
-  Name: {
-    fontWeight: "black",
-    fontSize: 30,
-    color: Colors.light.primary,
-  },
-
-  image: {
-    width: 100,
-    height: 100,
-    position: "relative",
-    margin: 2.5,
-    borderRadius: 100,
-  },
-
-  userInfo: {
-    backgroundColor: Colors.light.backgroundElement,
-
-    borderTopWidth: borderWith,
-    borderRightWidth: borderWith,
-    borderLeftWidth: borderWith,
-
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-
-    borderColor: Colors.light.backgroundSelected,
-
-    paddingBottom: 1000,
-    paddingLeft: 10,
-  },
-
-  pressable: {
-    color: Colors.light.tertiary,
-    backgroundColor: Colors.light.secondary,
-
-    height: 25,
-    width: 100,
-    borderRadius: 100,
-
-    alignItems: "center",
-    alignSelf: "center",
-    marginLeft: 140,
-  },
-});

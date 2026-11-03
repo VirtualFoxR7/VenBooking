@@ -1,5 +1,5 @@
 // Resumen: Pantalla de detalles refactorizada utilizando el tipo global importado para mantener el código limpio y sin duplicaciones.
-import { DetailsStyles, GlobalStyles } from "@/constants/global-styles";
+import { DetailsStyles } from "@/constants/global-styles";
 import { router, useLocalSearchParams } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 import { Image } from "expo-image";

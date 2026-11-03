@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import { Colors } from "./colors";
 
+
 const Values = {
   Radius: 10,
 
@@ -13,6 +14,8 @@ const Values = {
   DoubleMargin: 20,
 
   TitleSize: 30,
+
+  borderWith: 2
 };
 
 export const GlobalStyles = StyleSheet.create({
@@ -88,5 +91,59 @@ export const DetailsStyles = StyleSheet.create({
     color: Colors.primary,
 
     marginRight: Values.DoubleMargin,
+  },
+});
+
+export const ProfileStyle = StyleSheet.create({
+  global: {
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+
+  GeneralText: {
+    color: Colors.primary,
+  },
+
+  Name: {
+    fontWeight: "black",
+    fontSize: 30,
+    color: Colors.primary,
+  },
+
+  image: {
+    width: 100,
+    height: 100,
+    position: "relative",
+    margin: 2.5,
+    borderRadius: 100,
+  },
+
+  userInfo: {
+    backgroundColor: Colors.backgroundElement,
+
+    borderTopWidth: Values.borderWith,
+    borderRightWidth: Values.borderWith,
+    borderLeftWidth: Values.borderWith,
+
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+
+    borderColor: Colors.backgroundSelected,
+
+    paddingBottom: 1000,
+    paddingLeft: 10,
+  },
+
+  pressable: {
+    color: Colors.tertiary,
+    backgroundColor: Colors.secondary,
+
+    height: 25,
+    width: 100,
+    borderRadius: 100,
+
+    alignItems: "center",
+    alignSelf: "center",
+    marginLeft: 140,
   },
 });
