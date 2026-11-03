@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import api from '../services/axios';
+import {styles} from '../constants/global-styles';
 
 export default function TestButton() {
     const probarConexion = async () => {
@@ -19,17 +20,3 @@ export default function TestButton() {
     );
 }
 
-const styles = StyleSheet.create({
-    boton: {
-        backgroundColor: '#10b981',
-        padding: 12,
-        borderRadius: 8,
-        alignItems: 'center',
-        marginVertical: 8,
-    },
-    texto: {
-        color: '#ffffff',
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-});

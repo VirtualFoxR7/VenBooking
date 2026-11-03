@@ -147,3 +147,18 @@ export const ProfileStyle = StyleSheet.create({
     marginLeft: 140,
   },
 });
+
+export const styles = StyleSheet.create({
+    boton: {
+        backgroundColor: '#10b981',
+        padding: 12,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginVertical: 8,
+    },
+    texto: {
+        color: '#ffffff',
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
+});
