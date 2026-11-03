@@ -1,5 +1,6 @@
 import { Colors } from "@/constants/theme";
 import { Host } from "@expo/ui";
+import { Styletx } from "@/constants/global-styles";
 import { NativeTabs } from "expo-router/unstable-native-tabs";
 import { StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -7,7 +8,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 //TODO: Quitar los md por require
 export default function TabLayout() {
   return (
-    <Host style={Style.global}>
+    <Host style={Styletx.global}>
       <GestureHandlerRootView>
         <NativeTabs
           backgroundColor={Colors.light.backgroundElement}
@@ -36,11 +37,4 @@ export default function TabLayout() {
   );
 }
 
-const Style = StyleSheet.create({
-  global: {
-    flex: 1,
-    backgroundColor: Colors.light.background,
-    color: Colors.light.text,
-    marginTop: 35,
-  },
-});
+

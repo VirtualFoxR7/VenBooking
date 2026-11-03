@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { router } from "expo-router";
+import { stylesl } from "@/constants/global-styles";
 import * as SecureStore from "expo-secure-store";
 import { Controller, useForm } from "react-hook-form";
 import {
@@ -47,8 +48,8 @@ export default function LoginScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Iniciar Sesión</Text>
+    <View style={stylesl.container}>
+      <Text style={stylesl.title}>Iniciar Sesión</Text>
 
       {/* Input Email */}
       <Controller
@@ -56,7 +57,7 @@ export default function LoginScreen() {
         name="email"
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            style={[styles.input, errors.email && styles.inputError]}
+            style={[stylesl.input, errors.email && stylesl.inputError]}
             placeholder="Correo electrónico"
             onBlur={onBlur}
             onChangeText={onChange}
@@ -66,7 +67,7 @@ export default function LoginScreen() {
         )}
       />
       {errors.email && (
-        <Text style={styles.errorText}>{errors.email.message}</Text>
+        <Text style={stylesl.errorText}>{errors.email.message}</Text>
       )}
 
       {/* Input Password */}
@@ -75,7 +76,7 @@ export default function LoginScreen() {
         name="password"
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            style={[styles.input, errors.password && styles.inputError]}
+            style={[stylesl.input, errors.password && stylesl.inputError]}
             placeholder="Contraseña"
             onBlur={onBlur}
             onChangeText={onChange}
@@ -85,56 +86,22 @@ export default function LoginScreen() {
         )}
       />
       {errors.password && (
-        <Text style={styles.errorText}>{errors.password.message}</Text>
+        <Text style={stylesl.errorText}>{errors.password.message}</Text>
       )}
 
-      <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
-        <Text style={styles.buttonText}>Entrar</Text>
+      <TouchableOpacity style={stylesl.button} onPress={handleSubmit(onSubmit)}>
+        <Text style={stylesl.buttonText}>Entrar</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.recoveryButton}
+        style={stylesl.recoveryButton}
         onPress={() => router.push("/passChange")}
       >
-        <Text style={styles.recoveryButtonText}>¿Olvidaste tu contraseña?</Text>
+        <Text style={stylesl.recoveryButtonText}>¿Olvidaste tu contraseña?</Text>
       </TouchableOpacity>
       <TestButton/>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", padding: 20 },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-    textAlign: "center",
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 5,
-  },
-  inputError: { borderColor: "red" },
-  errorText: { color: "red", marginBottom: 10 },
-  button: {
-    backgroundColor: Colors.light.secondary,
-    padding: 15,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  buttonText: { color: "#fff", fontWeight: "bold" },
 
-  recoveryButton: {
-    marginTop: 15,
-    alignItems: "center",
-  },
-  recoveryButtonText: {
-    color: Colors.light.tertiary,
-    fontSize: 14,
-    fontWeight: "500",
-  },
-});

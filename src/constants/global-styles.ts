@@ -162,3 +162,105 @@ export const styles = StyleSheet.create({
         fontSize: 16,
     },
 });
+
+export const styless = StyleSheet.create({
+  container: { flex: 1, justifyContent: "center", padding: 20 },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 5,
+  },
+  inputError: { borderColor: "red" },
+  errorText: { color: "red", marginBottom: 10 },
+  button: {
+    backgroundColor: Colors.secondary,
+    padding: 15,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  buttonDisabled: { backgroundColor: "#a1caff" },
+  buttonText: { color: "#fff", fontWeight: "bold" },
+  cancelButton: { padding: 15, alignItems: "center", marginTop: 10 },
+  cancelButtonText: { color: Colors.tertiary, fontWeight: "bold" },
+});
+
+export const stylesSheets = StyleSheet.create({
+  image: {
+    width: 300,
+    height: 150,
+    alignSelf: "center",
+    alignItems: "center",
+    position: "relative",
+    margin: 2.5,
+    borderRadius: 20,
+  },
+  MainTextView: {
+    marginLeft: 10,
+    maxWidth: 200,
+    maxHeight: 100,
+  },
+  TitleText: {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: Colors.text,
+  },
+  InfoView: {
+    flexGrow: 100,
+    paddingLeft: 15,
+    flexShrink: 1,
+  },
+});
+
+export const stylesl = StyleSheet.create({
+  container: { flex: 1, justifyContent: "center", padding: 20 },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 5,
+  },
+  inputError: { borderColor: "red" },
+  errorText: { color: "red", marginBottom: 10 },
+  button: {
+    backgroundColor: Colors.secondary,
+    padding: 15,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  buttonText: { color: "#fff", fontWeight: "bold" },
+
+  recoveryButton: {
+    marginTop: 15,
+    alignItems: "center",
+  },
+  recoveryButtonText: {
+    color: Colors.tertiary,
+    fontSize: 14,
+    fontWeight: "500",
+  },
+});
+
+export const Styletx = StyleSheet.create({
+  global: {
+    flex: 1,
+    backgroundColor: Colors.background,
+    color: Colors.text,
+    marginTop: 35,
+  },
+});

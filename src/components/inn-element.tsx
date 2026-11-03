@@ -1,5 +1,6 @@
 import InnDetails from "@/app/InnDetails";
 import { Colors } from "@/constants/theme";
+import { stylesSheets } from "@/constants/global-styles";
 import { BottomSheet, Column } from "@expo/ui";
 import { Image } from "expo-image";
 import { router } from "expo-router";
@@ -122,29 +123,4 @@ const stylesElements = StyleSheet.create({
   },
 });
 
-const stylesSheets = StyleSheet.create({
-  image: {
-    width: 300,
-    height: 150,
-    alignSelf: "center",
-    alignItems: "center",
-    position: "relative",
-    margin: 2.5,
-    borderRadius: 20,
-  },
-  MainTextView: {
-    marginLeft: 10,
-    maxWidth: 200,
-    maxHeight: 100,
-  },
-  TitleText: {
-    fontSize: 25,
-    fontWeight: "bold",
-    color: Colors.light.text,
-  },
-  InfoView: {
-    flexGrow: 100,
-    paddingLeft: 15,
-    flexShrink: 1,
-  },
-});
+
