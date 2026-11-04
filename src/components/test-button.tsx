@@ -15,7 +15,7 @@ export default function TestButton() {
 
     return (
         <TouchableOpacity style={styles.boton} onPress={probarConexion}>
-            <Text style={styles.texto}>Testear Conexión</Text>
+            <Text style={styles.texto}>Zapato</Text>
         </TouchableOpacity>
     );
 }
