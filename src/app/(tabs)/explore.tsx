@@ -1,8 +1,7 @@
-// Componente adaptado para obtener el listado dinámico de posadas desde el servidor mediante Axios, eliminando la dependencia del archivo JSON estático.
+// Resumen del código: Se asigna 'flex: 1' al contenedor contenedor principal y se añade 'contentContainerStyle' con 'paddingBottom' en el FlatList para evitar que la barra inferior oculte los últimos elementos de la lista.
 import { View } from "react-native";
-import InnElementMinimal from "@/components/inn-minimal";
+import InnElement from "@/components/inn/full";
 import { FlatList } from "react-native-gesture-handler";
-import { Text } from "react-native";
 import { useEffect, useState } from "react";
 import FilterChips from "@/components/Filters";
 import api from "@/services/axios";
@@ -34,14 +33,15 @@ export default function Tab() {
   });
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <FilterChips fieldKey="city" onSelectFilter={(val) => setFilterCity(val)} />
       <FilterChips fieldKey="state" onSelectFilter={(val) => setFilterState(val)} />
       <FlatList
         data={filteredData}
         keyExtractor={(item: any) => item.id.toString()}
+        contentContainerStyle={{ paddingBottom: 90 }}
         renderItem={({ item }: { item: any }) => (
-          <InnElementMinimal id={item.id.toString()} />
+          <InnElement id={item.id.toString()} />
         )}
       />
     </View>

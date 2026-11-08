@@ -1,4 +1,3 @@
-// Resumen: Definición centralizada de la interfaz para la entidad posada, permitiendo reutilizarla en toda la aplicación sin duplicar código.
 export interface InnData {
   id: number;
   name: string;

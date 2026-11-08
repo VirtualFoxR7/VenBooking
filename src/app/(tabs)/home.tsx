@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import InnElementMinimal from "@/components/inn-minimal";
+import InnElementMinimal from "@/components/inn/minimal";
 import { FlatList } from "react-native-gesture-handler";
 import { Text } from "react-native";
 import { useEffect, useState } from "react";

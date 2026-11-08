@@ -1,10 +1,9 @@
-import { Colors } from "@/constants/theme";
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, Text, View } from "react-native";
-import api from "../services/axios";
-import { GlobalStyles, Images, InnStyles, PressableStyles } from "@/constants/global-styles";
+import api from "@/services/axios";
+import { Images, InnStyles, PressableStyles } from "@/constants/global-styles";
 import { InnData } from "@/types/inn";
 interface Props {
   id: string;
@@ -17,7 +16,7 @@ export default function InnElement({ id }: Props) {
 
   const Details = () => {
     router.push({
-      pathname: "/InnDetails",
+      pathname: "/detail-screen/inn",
       params: { id: id },
     });
   };
