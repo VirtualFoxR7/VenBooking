@@ -1,4 +1,4 @@
-// Resumen: Pantalla de detalles refactorizada utilizando el tipo global importado para mantener el código limpio y sin duplicaciones.
+// Resumen: Pantalla de detalles actualizada con las variables locales traducidas al inglés y adaptada para usar el tipo global InnData.
 import { DetailsStyles } from "@/constants/global-styles";
 import { router, useLocalSearchParams } from "expo-router";
 import { Pressable, Text, View } from "react-native";
@@ -13,7 +13,7 @@ export default function InnDetails() {
   const innId = Array.isArray(id) ? id[0] : id;
 
   const [inn, setInn] = useState<InnData | null>(null);
-  const [cargando, setCargando] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { isFavorite, toggleFavorite } = useFavorites();
   const liked = innId ? isFavorite(innId) : false;
@@ -22,24 +22,24 @@ export default function InnDetails() {
     const fetchInnDetails = async () => {
       if (!innId) return;
       try {
-        const respuesta = await api.get(`/inns/${innId}`);
-        if (respuesta.data.success) {
-          setInn(respuesta.data.data);
+        const response = await api.get(`/inns/${innId}`);
+        if (response.data.success) {
+          setInn(response.data.data);
         }
       } catch (error) {
-        console.error("Error al cargar los detalles de la posada:", error);
+        console.error("Error loading inn details:", error);
       } finally {
-        setCargando(false);
+        setIsLoading(false);
       }
     };
 
     fetchInnDetails();
   }, [innId]);
 
-  if (cargando) {
+  if (isLoading) {
     return (
       <View style={DetailsStyles.General}>
-        <Text>Cargando...</Text>
+        <Text>Loading...</Text>
       </View>
     );
   }
@@ -48,7 +48,7 @@ export default function InnDetails() {
     return (
       <View style={DetailsStyles.General}>
         <Pressable onPress={router.back}>
-          <Text>Atrás</Text>
+          <Text>Back</Text>
         </Pressable>
         <Text>ID Not Found</Text>
       </View>
@@ -58,7 +58,7 @@ export default function InnDetails() {
   return (
     <View style={DetailsStyles.General}>
       <Pressable onPress={router.back}>
-        <Text>Atrás</Text>
+        <Text>Back</Text>
       </Pressable>
 
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -71,13 +71,13 @@ export default function InnDetails() {
       <Image source={{ uri: inn.image_url }} style={DetailsStyles.Image} />
       <Text>{inn.description}</Text>
       <Text>ID: {inn.id}</Text>
-      <Text>Estado: {inn.state}</Text>
-      <Text>Municipio: {inn.municipality}</Text>
-      <Text>Parroquia: {inn.parish}</Text>
-      <Text>Categoría: {inn.category}</Text>
-      <Text>Correo: {inn.email}</Text>
-      <Text>Teléfono: {inn.phone}</Text>
-      <Text>Estatus: {inn.status}</Text>
+      <Text>State: {inn.state}</Text>
+      <Text>Municipality: {inn.municipality}</Text>
+      <Text>Parish: {inn.parish}</Text>
+      <Text>Category: {inn.category}</Text>
+      <Text>Email: {inn.email}</Text>
+      <Text>Phone: {inn.phone}</Text>
+      <Text>Status: {inn.status}</Text>
     </View>
   );
 }

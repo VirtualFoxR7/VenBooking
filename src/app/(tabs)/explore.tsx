@@ -3,7 +3,7 @@ import { View } from "react-native";
 import InnElement from "@/components/inn/full";
 import { FlatList } from "react-native-gesture-handler";
 import { useEffect, useState } from "react";
-import FilterChips from "@/components/Filters";
+import FilterChips from "@/components/filters";
 import api from "@/services/axios";
 
 export default function Tab() {
