@@ -1,31 +1,51 @@
-import InnDetails from "@/app/InnDetails";
 import { Colors } from "@/constants/theme";
-import { stylesSheets } from "@/constants/global-styles";
-import { BottomSheet, Column } from "@expo/ui";
 import { Image } from "expo-image";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import innDatabase from "../data/staticDatabase.json";
+import api from "@/services/axios";
+import { InnData } from "@/types/inn";
 
 interface Props {
   id: string;
 }
 
 export default function InnElement({ id }: Props) {
-  const Details = () => {
+  const [inn, setInn] = useState<InnData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handlePressDetails = () => {
     router.push({
-      pathname: "/InnDetails",
-      params: {id: id}
+      pathname: "/detail-screen/inn",
+      params: { id: id },
     });
   };
 
-  const [isPresented, setIsPresented] = useState(false);
+  useEffect(() => {
+    const fetchInnData = async () => {
+      try {
+        const response = await api.get(`/inns/${id}`);
+        if (response.data.success) {
+          setInn(response.data.data);
+        }
+      } catch (error) {
+        console.error("Error loading inn data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  // 1. Buscamos el elemento dentro del componente principal
-  const inn = innDatabase.find((item) => item.id === id);
+    fetchInnData();
+  }, [id]);
 
-  // 2. Si no se encuentra, manejamos el error visualmente aquí mismo
+  if (isLoading) {
+    return (
+      <View style={stylesElements.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
   if (!inn) {
     return (
       <View style={stylesElements.container}>
@@ -36,7 +56,7 @@ export default function InnElement({ id }: Props) {
 
   return (
     <Pressable
-      onPress={() => setIsPresented(true)}
+      onPress={handlePressDetails}
       style={({ pressed }) => ({
         flexDirection: "row",
         backgroundColor: pressed
@@ -49,14 +69,12 @@ export default function InnElement({ id }: Props) {
         maxHeight: 250,
       })}
     >
-      <Pressable onPress={Details}>
-        <Image
-          style={stylesElements.image}
-          source={{ uri: inn.image }}
-          contentFit="cover"
-          transition={1000}
-        />
-      </Pressable>
+      <Image
+        style={stylesElements.image}
+        source={{ uri: inn.image_url }}
+        contentFit="cover"
+        transition={1000}
+      />
 
       <View style={stylesElements.MainTextView}>
         <Text
@@ -68,32 +86,10 @@ export default function InnElement({ id }: Props) {
         </Text>
         <View style={stylesElements.InfoView}>
           <Text>{inn.state}</Text>
-          <Text>{inn.city}</Text>
-          <Text numberOfLines={2}>{inn.desc}</Text>
+          <Text>{inn.municipality}</Text>
+          <Text numberOfLines={2}>{inn.description}</Text>
         </View>
       </View>
-
-      {/* Bottom Sheet */}
-      <BottomSheet
-        isPresented={isPresented}
-        onDismiss={() => setIsPresented(false)}
-        snapPoints={["half", "full"]}
-      >
-        <Column spacing={12}>
-          <Text style={stylesSheets.TitleText}>{inn.name}</Text>
-          <Image
-            style={stylesSheets.image}
-            source={{ uri: inn.image }}
-            contentFit="cover"
-            transition={1000}
-          />
-          <View style={stylesSheets.MainTextView}>
-            <Text>{inn.state}</Text>
-            <Text>{inn.city}</Text>
-            <Text>{inn.desc}</Text>
-          </View>
-        </Column>
-      </BottomSheet>
     </Pressable>
   );
 }
@@ -122,5 +118,3 @@ const stylesElements = StyleSheet.create({
     paddingLeft: 15,
   },
 });
-
-

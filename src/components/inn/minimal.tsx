@@ -1,48 +1,48 @@
-import { Colors } from "@/constants/theme";
+// Resumen: Componente InnElement actualizado con todas las variables locales traducidas al inglés.
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, Text, View } from "react-native";
-import api from "../services/axios";
-import { GlobalStyles, Images, InnStyles, PressableStyles } from "@/constants/global-styles";
+import api from "@/services/axios";
+import { Images, InnStyles, PressableStyles } from "@/constants/global-styles";
 import { InnData } from "@/types/inn";
+
 interface Props {
   id: string;
 }
 
 export default function InnElement({ id }: Props) {
-
   const [inn, setInn] = useState<InnData | null>(null);
-  const [cargando, setCargando] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const Details = () => {
+  const handlePressDetails = () => {
     router.push({
-      pathname: "/InnDetails",
+      pathname: "/detail-screen/inn",
       params: { id: id },
     });
   };
 
   useEffect(() => {
-    const innDataId = async () => {
+    const fetchInnData = async () => {
       try {
-        const respuesta = await api.get(`/inns/${id}`);
-        if (respuesta.data.success) {
-          setInn(respuesta.data.data);
+        const response = await api.get(`/inns/${id}`);
+        if (response.data.success) {
+          setInn(response.data.data);
         }
       } catch (error) {
-        console.error("Error al cargar la posada:", error);
+        console.error("Error loading inn data:", error);
       } finally {
-        setCargando(false);
+        setIsLoading(false);
       }
     };
 
-    innDataId();
+    fetchInnData();
   }, [id]);
 
-  if (cargando) {
+  if (isLoading) {
     return (
       <View>
-        <Text>Cargando...</Text>
+        <Text>Loading...</Text>
       </View>
     );
   }
@@ -57,13 +57,13 @@ export default function InnElement({ id }: Props) {
 
   return (
     <Pressable
-      onPress={Details}
+      onPress={handlePressDetails}
       style={({ pressed }) => [
         PressableStyles.notPressed,
-        pressed && PressableStyles.pressed
+        pressed && PressableStyles.pressed,
       ]}
     >
-      <Pressable onPress={Details}>
+      <Pressable onPress={handlePressDetails}>
         <Image
           style={Images.InnMinimal}
           source={{ uri: inn.image_url }}
@@ -76,7 +76,8 @@ export default function InnElement({ id }: Props) {
         <Text
           style={InnStyles.MinimalTitle}
           numberOfLines={1}
-          adjustsFontSizeToFit>
+          adjustsFontSizeToFit
+        >
           {inn.name}
         </Text>
         <View>
